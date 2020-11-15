@@ -7,8 +7,8 @@ from .number import Number
 
 
 class ShaderNodesVisitor(ASTVisitor):
-    def __init__(self):
-        self.node_tree = bpy.data.materials[0].node_tree
+    def __init__(self, node_tree):
+        self.node_tree = node_tree
         self.location = mathutils.Vector((0.0, 0.0))
         self.nodes_offset = 50
 

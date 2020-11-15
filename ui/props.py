@@ -2,4 +2,6 @@ import bpy
 
 
 class ExprToNodesProps(bpy.types.PropertyGroup):
-    text_input: bpy.props.StringProperty(name="Text input")
+    expression: bpy.props.StringProperty(
+        name="Expression", description="Mathematical expression to parse", default=""
+    )

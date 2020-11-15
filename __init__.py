@@ -25,10 +25,15 @@ try:
 except ImportError as e:
     pass
 
+from .operator.parse_operator import EXPRTONODES_OT_Parse
 from .ui.editor_panel import EXPRTONODES_PT_Main
 from .ui.props import ExprToNodesProps
 
-classes = [EXPRTONODES_PT_Main]
+classes = (
+    EXPRTONODES_OT_Parse,
+    ExprToNodesProps,
+    EXPRTONODES_PT_Main,
+)
 
 
 def register():
@@ -37,7 +42,7 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 
-    bpy.types.Scene.exprtonodes = bpy.props.PointerProperty(type=ExprToNodesProps)
+    bpy.types.Scene.expr_to_nodes = bpy.props.PointerProperty(type=ExprToNodesProps)
 
 
 def unregister():
@@ -46,7 +51,7 @@ def unregister():
     for cls in classes:
         bpy.utils.unregister_class(cls)
 
-    del bpy.types.Scene.exprtonodes
+    del bpy.types.Scene.expr_to_nodes
 
 
 if __name__ == "__main__":
