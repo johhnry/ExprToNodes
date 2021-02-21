@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'DIVIDE LPAREN MINUS MODULO NUMBER PLUS RPAREN TIMESexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : term MODULO factorterm : factorfactor : NUMBERfactor : LPAREN expression RPAREN'
+_lr_signature = 'DIVIDE ENDL IDENTIFIER LPAREN MINUS MODULO NUMBER PLUS RPAREN TIMESexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : term MODULO factorterm : factorterm : IDENTIFIER LPAREN RPARENfactor : NUMBERfactor : LPAREN expression RPAREN'
     
-_lr_action_items = {'NUMBER':([0,5,6,7,8,9,10,],[4,4,4,4,4,4,4,]),'LPAREN':([0,5,6,7,8,9,10,],[5,5,5,5,5,5,5,]),'$end':([1,2,3,4,12,13,14,15,16,17,],[0,-3,-7,-8,-1,-2,-4,-5,-6,-9,]),'PLUS':([1,2,3,4,11,12,13,14,15,16,17,],[6,-3,-7,-8,6,-1,-2,-4,-5,-6,-9,]),'MINUS':([1,2,3,4,11,12,13,14,15,16,17,],[7,-3,-7,-8,7,-1,-2,-4,-5,-6,-9,]),'RPAREN':([2,3,4,11,12,13,14,15,16,17,],[-3,-7,-8,17,-1,-2,-4,-5,-6,-9,]),'TIMES':([2,3,4,12,13,14,15,16,17,],[8,-7,-8,8,8,-4,-5,-6,-9,]),'DIVIDE':([2,3,4,12,13,14,15,16,17,],[9,-7,-8,9,9,-4,-5,-6,-9,]),'MODULO':([2,3,4,12,13,14,15,16,17,],[10,-7,-8,10,10,-4,-5,-6,-9,]),}
+_lr_action_items = {'IDENTIFIER':([0,5,7,8,],[4,4,4,4,]),'NUMBER':([0,5,7,8,9,10,11,],[6,6,6,6,6,6,6,]),'LPAREN':([0,4,5,7,8,9,10,11,],[5,12,5,5,5,5,5,5,]),'$end':([1,2,3,6,14,15,16,17,18,19,20,],[0,-3,-7,-9,-1,-2,-4,-5,-6,-8,-10,]),'PLUS':([1,2,3,6,13,14,15,16,17,18,19,20,],[7,-3,-7,-9,7,-1,-2,-4,-5,-6,-8,-10,]),'MINUS':([1,2,3,6,13,14,15,16,17,18,19,20,],[8,-3,-7,-9,8,-1,-2,-4,-5,-6,-8,-10,]),'RPAREN':([2,3,6,12,13,14,15,16,17,18,19,20,],[-3,-7,-9,19,20,-1,-2,-4,-5,-6,-8,-10,]),'TIMES':([2,3,6,14,15,16,17,18,19,20,],[9,-7,-9,9,9,-4,-5,-6,-8,-10,]),'DIVIDE':([2,3,6,14,15,16,17,18,19,20,],[10,-7,-9,10,10,-4,-5,-6,-8,-10,]),'MODULO':([2,3,6,14,15,16,17,18,19,20,],[11,-7,-9,11,11,-4,-5,-6,-8,-10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,5,],[1,11,]),'term':([0,5,6,7,],[2,2,12,13,]),'factor':([0,5,6,7,8,9,10,],[3,3,3,3,14,15,16,]),}
+_lr_goto_items = {'expression':([0,5,],[1,13,]),'term':([0,5,7,8,],[2,2,14,15,]),'factor':([0,5,7,8,9,10,11,],[3,3,3,3,16,17,18,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,13 +27,14 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> expression PLUS term','expression',3,'p_expression_plus','expr_parser.py',9),
-  ('expression -> expression MINUS term','expression',3,'p_expression_minus','expr_parser.py',13),
-  ('expression -> term','expression',1,'p_expression_term','expr_parser.py',17),
-  ('term -> term TIMES factor','term',3,'p_term_times','expr_parser.py',21),
-  ('term -> term DIVIDE factor','term',3,'p_term_div','expr_parser.py',25),
-  ('term -> term MODULO factor','term',3,'p_term_modulo','expr_parser.py',29),
-  ('term -> factor','term',1,'p_term_factor','expr_parser.py',33),
-  ('factor -> NUMBER','factor',1,'p_factor_num','expr_parser.py',37),
-  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','expr_parser.py',41),
+  ('expression -> expression PLUS term','expression',3,'p_expression_plus','expr_parser.py',14),
+  ('expression -> expression MINUS term','expression',3,'p_expression_minus','expr_parser.py',18),
+  ('expression -> term','expression',1,'p_expression_term','expr_parser.py',22),
+  ('term -> term TIMES factor','term',3,'p_term_times','expr_parser.py',26),
+  ('term -> term DIVIDE factor','term',3,'p_term_div','expr_parser.py',30),
+  ('term -> term MODULO factor','term',3,'p_term_modulo','expr_parser.py',34),
+  ('term -> factor','term',1,'p_term_factor','expr_parser.py',38),
+  ('term -> IDENTIFIER LPAREN RPAREN','term',3,'p_term_function','expr_parser.py',42),
+  ('factor -> NUMBER','factor',1,'p_factor_num','expr_parser.py',46),
+  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','expr_parser.py',50),
 ]

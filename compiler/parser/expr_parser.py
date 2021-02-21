@@ -1,10 +1,15 @@
 from ..ast.bin_op import BinOp
+from ..ast.funcall import FunCall
 from ..ast.number import Number
 from ..lexer.expr_lexer import ExprLexer
 from ..ply import yacc
 
 
 class ExprParser:
+    """def p_statement_expression(self, p):
+        "statement : expression ENDL"
+        p[0] = p[1]"""
+
     def p_expression_plus(self, p):
         "expression : expression PLUS term"
         p[0] = BinOp("+", p[1], p[3])
@@ -33,6 +38,10 @@ class ExprParser:
         "term : factor"
         p[0] = p[1]
 
+    def p_term_function(self, p):
+        "term : IDENTIFIER LPAREN RPAREN"
+        p[0] = FunCall(p[1], [])
+
     def p_factor_num(self, p):
         "factor : NUMBER"
         p[0] = Number(p[1])
@@ -42,7 +51,7 @@ class ExprParser:
         p[0] = p[2]
 
     def p_error(self, p):
-        print("Syntax error in input!")
+        raise Exception(p)
 
     def build(self, **kwargs):
         self.lexer = ExprLexer()

@@ -9,8 +9,20 @@ from .number import Number
 class ShaderNodesVisitor(ASTVisitor):
     def __init__(self, node_tree):
         self.node_tree = node_tree
-        self.location = mathutils.Vector((0.0, 0.0))
         self.nodes_offset = 50
+        self.location = mathutils.Vector(self.get_optimal_start_location())
+
+    def get_optimal_start_location(self) -> mathutils.Vector:
+        nodes = self.node_tree.nodes
+        x_left = 0
+        y_average = 0
+        for node in nodes:
+            x_left = min(x_left, node.location[0])
+            y_average += node.location[1]
+
+        y_average /= len(nodes)
+
+        return mathutils.Vector((x_left - 140 - self.nodes_offset, y_average))
 
     def set_input(self, node, input_index, input_node) -> None:
         input = node.inputs[input_index]
